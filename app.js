@@ -261,9 +261,9 @@ settingsElement.addEventListener('input', (event) => {
 })
 
 window.addEventListener("load", () => {
+    localStorage.setItem('defaultSettings', JSON.stringify(defaultColors));
     initSettings();
     updateTextarea('Hello this is some random text to show you what this is can and can not ^_^ ');
-    localStorage.setItem('defaultSettings', JSON.stringify(defaultColors));
 });
 
 window.addEventListener('unload', () => {
