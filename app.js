@@ -128,6 +128,7 @@ const getAddButtonRow = (index, color) => {
 
 const appendSettingRow = (index) => {
     let row = document.createElement('div');
+    row.className = "row_setting";
     let color = randomColor();
     row.innerHTML = getAddButtonRow(index, color);
     settingsTextColor.push({ letters: '', color: color });
@@ -139,7 +140,7 @@ const setAddButton = () => {
     document.getElementById('button_add').addEventListener('click', (event) => {
         let target = event.target || event.srcElement;
         updateAddButton(target)
-        appendSettingRow(target.parentElement.id);
+        appendSettingRow(target.parentElement.id + 1);
         setAddButton();
     }, { once: true });
 }
@@ -155,7 +156,9 @@ const initSettings = () => {
         settingsElement.innerHTML += getDeleteButtonRow(i, settingsTextColor[i].letters, settingsTextColor[i].color);
         i++;
     }
-    settingsElement.innerHTML += `<div>${getAddButtonRow(i, randomColor())}</div>`
+    let color = randomColor();
+    settingsTextColor[settingsTextColor.length - 1].color = color;
+    settingsElement.innerHTML += `<div>${getAddButtonRow(i, color)}</div>`
 
     settingsElement.innerHTML += 
     `<h2 id="heading_layout">Layout</h2>
@@ -264,6 +267,7 @@ window.addEventListener("load", () => {
     localStorage.setItem('defaultSettings', JSON.stringify(defaultColors));
     initSettings();
     updateTextarea('Hello this is some random text to show you what this is can and can not ^_^ ');
+    
 });
 
 window.addEventListener('unload', () => {
